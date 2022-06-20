@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.BikkadIt.BlogApp.Entities.User;
 import com.BikkadIt.BlogApp.Exceptions.ResourceNotFoundException;
@@ -11,6 +12,7 @@ import com.BikkadIt.BlogApp.Payloads.UserDTO;
 import com.BikkadIt.BlogApp.Services.UserService;
 import com.BikkadIt.BlogApp.repositorys.UserRepo;
 
+@Service
 public class UserserviceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
