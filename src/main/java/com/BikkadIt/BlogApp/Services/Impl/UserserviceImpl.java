@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.BikkadIt.BlogApp.Entities.User;
+import com.BikkadIt.BlogApp.Exceptions.ResourceNotFoundException;
 import com.BikkadIt.BlogApp.Payloads.UserDTO;
 import com.BikkadIt.BlogApp.Services.UserService;
 import com.BikkadIt.BlogApp.repositorys.UserRepo;
@@ -38,15 +39,28 @@ public class UserserviceImpl implements UserService{
 	}
 
 	@Override
-	public UserDTO createUser(UserDTO user) {
+	public UserDTO createUser(UserDTO userdto) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		User user= this.dtoToUser(userdto);
+		User saveUser=this.userRepo.save(user);
+		return this.userTouserDTO(saveUser);
 	}
 
 	@Override
-	public UserDTO updateUser(UserDTO user, Integer userId) {
+	public UserDTO updateUser(UserDTO userdto, Integer userId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		User user=this.userRepo.findById(userId)
+				.orElseThrow(()->new ResourceNotFoundException("User","id",userId));
+		user.setName(userdto.getEmail());
+		user.setEmail(userdto.getEmail());
+		user.setPassword(userdto.getPassword());
+		user.setAbout(userdto.getAbout());
+		
+		User save = this.userRepo.save(user);
+		UserDTO userTouserDTO = this.userTouserDTO(save);
+		return userTouserDTO;
 	}
 
 	@Override
