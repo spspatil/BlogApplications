@@ -1,5 +1,6 @@
 package com.BikkadIt.BlogApp.Payloads;
 
+
 public class UserDTO {
 	
 	private int id;
