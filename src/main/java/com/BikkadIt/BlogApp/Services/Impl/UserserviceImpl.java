@@ -1,6 +1,7 @@
 package com.BikkadIt.BlogApp.Services.Impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -66,13 +67,20 @@ public class UserserviceImpl implements UserService{
 	@Override
 	public UserDTO getuserByid(Integer userId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		User user=this.userRepo.findById(userId)
+				.orElseThrow(()-> new ResourceNotFoundException("User", "Id",userId));
+		return this.userTouserDTO(user);
 	}
 
 	@Override
 	public List<UserDTO> getAllUser() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		List<User> users = this.userRepo.findAll();
+		
+		List<UserDTO> userDTOs = users.stream().map(user-> this.userTouserDTO(user)).collect(Collectors.toList());
+		return userDTOs;
 	}
 
 	@Override
