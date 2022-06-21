@@ -3,6 +3,7 @@ package com.BikkadIt.BlogApp.Services.Impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +18,33 @@ public class UserserviceImpl implements UserService{
 	@Autowired
 	private UserRepo userRepo;
 	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	private User dtoToUser(UserDTO userDTO) {
-		User user=new User();
+		User user=this.modelMapper.map(userDTO, User.class);
+		
+		/*************
 		user.setId(userDTO.getId());
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
 		user.setAbout(userDTO.getAbout());
-		
+		******************/
 		return user;
 		
 	}
 
 	private UserDTO userTouserDTO(User user) {
-		UserDTO userdto=new UserDTO();
+		UserDTO userdto=this.modelMapper.map(user, UserDTO.class);
+		
+		
+		/*************
 		userdto.setId(user.getId());
 		userdto.setName(user.getName());
 		userdto.setEmail(user.getEmail());
 		userdto.setPassword(user.getPassword());
-		userdto.setAbout(user.getAbout());
+		userdto.setAbout(user.getAbout());***********/
 		
 		return userdto;
 		
@@ -56,7 +65,7 @@ public class UserserviceImpl implements UserService{
 		
 		User user=this.userRepo.findById(userId)
 				.orElseThrow(()->new ResourceNotFoundException("User","id",userId));
-		user.setName(userdto.getEmail());
+		user.setName(userdto.getName());
 		user.setEmail(userdto.getEmail());
 		user.setPassword(userdto.getPassword());
 		user.setAbout(userdto.getAbout());
