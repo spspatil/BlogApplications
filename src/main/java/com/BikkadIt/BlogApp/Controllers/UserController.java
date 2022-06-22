@@ -3,6 +3,8 @@ package com.BikkadIt.BlogApp.Controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class UserController {
 	//Post -create user
 	
 	@PostMapping("/")
-	public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDto){
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO userDto){
 		UserDTO createUser = this.userService.createUser(userDto);
 		
 		return new ResponseEntity<UserDTO>(createUser,HttpStatus.CREATED);
@@ -39,7 +41,7 @@ public class UserController {
 	
 	//Put - updateUser
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO ,@PathVariable Integer userId){
+	public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO ,@PathVariable Integer userId){
 		
 		UserDTO updatedUser = this.userService.updateUser(userDTO, userId);
 		return ResponseEntity.ok(updatedUser);
