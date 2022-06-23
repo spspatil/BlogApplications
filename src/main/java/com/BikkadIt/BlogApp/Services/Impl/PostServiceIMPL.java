@@ -1,14 +1,17 @@
 package com.BikkadIt.BlogApp.Services.Impl;
 
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.BikkadIt.BlogApp.Entities.Category;
 import com.BikkadIt.BlogApp.Entities.Post;
@@ -86,12 +89,18 @@ public class PostServiceIMPL implements PostService{
 
 	@Override
 	
-	public List<PostDTO> getAllPost() {
+	public List<PostDTO> getAllPost(Integer pageNumber,Integer pageSize) {
 		// TODO Auto-generated method stub
 		
-		List<Post> posts = this.postRepo.findAll();
 		
-		List<PostDTO> postDTOs= posts.stream().map((post)-> this.modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
+		Pageable pageable=PageRequest.of(pageNumber, pageSize);
+		
+		
+		
+	Page<Post> pagePost = this.postRepo.findAll(pageable);
+	List<Post> allposts = pagePost.getContent();
+		
+		List<PostDTO> postDTOs= allposts.stream().map((post)-> this.modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
 		return postDTOs;
 	}
 
