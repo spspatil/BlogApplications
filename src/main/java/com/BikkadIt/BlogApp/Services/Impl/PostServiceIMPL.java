@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.BikkadIt.BlogApp.Entities.Category;
 import com.BikkadIt.BlogApp.Entities.Post;
@@ -22,6 +23,7 @@ import com.BikkadIt.BlogApp.repositorys.UserRepo;
 @Service
 public class PostServiceIMPL implements PostService{
 	
+
 	@Autowired
 	private PostRepo postRepo;
 	@Autowired
@@ -54,27 +56,53 @@ public class PostServiceIMPL implements PostService{
 	}
 
 	@Override
-	public Post updatePost(PostDTO postDTO, Integer postId) {
+	public PostDTO updatePost(PostDTO postDTO, Integer postId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Post post = this.postRepo.findById(postId)
+				.orElseThrow(()-> new ResourceNotFoundException("post", "postId", postId));
+		
+		post.setTitle(postDTO.getTitle());
+		post.setContent(postDTO.getContent());
+		post.setImageName(post.getImageName());
+		
+		Post save = this.postRepo.save(post);
+		 
+		
+		return this.modelMapper.map(save, PostDTO.class);
 	}
 
 	@Override
 	public void deletePost(Integer postId) {
 		// TODO Auto-generated method stub
 		
+		Post post = this.postRepo.findById(postId)
+				.orElseThrow(()-> new ResourceNotFoundException("post", "postId", postId));
+		
+		this.postRepo.delete(post);
+		
+		
 	}
 
 	@Override
-	public List<Post> getAllPost() {
+	
+	public List<PostDTO> getAllPost() {
 		// TODO Auto-generated method stub
-		return null;
+		
+		List<Post> posts = this.postRepo.findAll();
+		
+		List<PostDTO> postDTOs= posts.stream().map((post)-> this.modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
+		return postDTOs;
 	}
 
 	@Override
-	public Post getpostById(Integer postId) {
+	public PostDTO getpostById(Integer postId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Post post = this.postRepo.findById(postId)
+				.orElseThrow(()-> new ResourceNotFoundException("post", "postId", postId));
+		
+		return this.modelMapper.map(post, PostDTO.class);
 	}
 
 	@Override
@@ -99,7 +127,8 @@ public class PostServiceIMPL implements PostService{
 		
 		List<Post> posts = this.postRepo.findByUser(user);
 		
-		List<PostDTO> postDTOs = posts.stream().map((post)-> this.modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
+		List<PostDTO> postDTOs = posts.stream().map((post)-> this.modelMapper.map(post, PostDTO.class))
+				.collect(Collectors.toList());
 		
 		return postDTOs;
 	}
