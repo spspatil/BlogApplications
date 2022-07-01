@@ -33,13 +33,15 @@ public class PostDTO {
 	
 	private UserDTO user;
 	
-	private Set<Comment> comments=new HashSet<>(); 
+	private Set<CommentDto> comments=new HashSet<>(); 
 
-	public Set<Comment> getComments() {
+	
+
+	public Set<CommentDto> getComments() {
 		return comments;
 	}
 
-	public void setComments(Set<Comment> comments) {
+	public void setComments(Set<CommentDto> comments) {
 		this.comments = comments;
 	}
 

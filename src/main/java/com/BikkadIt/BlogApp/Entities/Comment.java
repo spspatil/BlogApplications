@@ -1,5 +1,7 @@
 package com.BikkadIt.BlogApp.Entities;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Comment {
 	
 	@ManyToOne
 	private Post post;
+	
 
 	public Integer getCommentId() {
 		return commentId;

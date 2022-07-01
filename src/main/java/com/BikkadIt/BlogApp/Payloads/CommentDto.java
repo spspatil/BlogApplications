@@ -5,6 +5,8 @@ public class CommentDto {
 	private Integer commentId;
 	
 	private String content;
+	
+	
 
 	public Integer getCommentId() {
 		return commentId;
