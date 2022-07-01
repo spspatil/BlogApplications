@@ -6,8 +6,20 @@ import javax.validation.constraints.Size;
 
 public class UserDTO {
 	
-	private int id;
 	
+	private int id;
+
+	
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@NotEmpty
 	@Size(min = 4 , message = "Username must be min of 4 character !!")
 	private String name;
@@ -27,13 +39,7 @@ public class UserDTO {
 		
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public String getName() {
 		return name;

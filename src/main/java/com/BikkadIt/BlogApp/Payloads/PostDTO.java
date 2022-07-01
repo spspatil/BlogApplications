@@ -1,13 +1,25 @@
 package com.BikkadIt.BlogApp.Payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.BikkadIt.BlogApp.Entities.Category;
+import com.BikkadIt.BlogApp.Entities.Comment;
 import com.BikkadIt.BlogApp.Entities.User;
 
 public class PostDTO {
 	
+	private Integer postId;
 	
+	public Integer getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Integer postId) {
+		this.postId = postId;
+	}
+
 	private String title;
 	
 	private String content;
@@ -20,6 +32,16 @@ public class PostDTO {
 	private CategoryDTO category;
 	
 	private UserDTO user;
+	
+	private Set<Comment> comments=new HashSet<>(); 
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public String getTitle() {
 		return title;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.BikkadIt.BlogApp.Entities.Post;
 import com.BikkadIt.BlogApp.Payloads.PostDTO;
+import com.BikkadIt.BlogApp.Payloads.PostResponse;
 
 public interface PostService {
 	
@@ -21,7 +22,7 @@ public interface PostService {
 	
 	//getAllPost
 	
-	List<PostDTO> getAllPost(Integer pageNumber,Integer pageSize);
+	List<PostDTO> getAllPost(Integer pageNumber,Integer pageSize,String sortBy,String sortDir);
 	
 	//getpost by single id
 	PostDTO getpostById(Integer postId);
@@ -33,6 +34,11 @@ public interface PostService {
 	//get All posts by User
 	
 	List<PostDTO> getPostByUser(Integer userId);
+	
+	//Search
+	 
+	List<PostDTO> searchPosts(String keyWords);
+	
 	
 	
 	

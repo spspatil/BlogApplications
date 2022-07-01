@@ -1,13 +1,17 @@
 package com.BikkadIt.BlogApp.Entities;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +37,17 @@ public class Post {
 	
 	@ManyToOne
 	private User user;
+	
+	@OneToMany(mappedBy = "post" ,cascade = CascadeType.ALL)
+	private Set<Comment> comments=new HashSet<>();
+
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
 
 	public Category getCategory() {
 		return category;
